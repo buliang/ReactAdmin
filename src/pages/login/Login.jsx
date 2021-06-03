@@ -3,7 +3,7 @@ import "./login.less"
 import logo from "./images/logo.png"
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-
+import { reqLogin } from "../../api"
 
 const Item = Form.Item;
 
@@ -20,13 +20,13 @@ export default class Login extends Component {
     }
   }
   onFinish = async () => {
-    try {
-      const values = await this.loginForm.validateFields()
-      console.log('success:', values);
-    } catch (errorInfo) {
-      console.log('Failed:', errorInfo);
 
-    }
+    const values = await this.loginForm.validateFields()
+    console.log('success:', values);
+    const { username, password } = values;
+    const res = await reqLogin({ username, password })
+    console.log(res);
+
 
   }
   render () {
